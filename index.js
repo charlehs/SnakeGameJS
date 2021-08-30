@@ -36,6 +36,15 @@ currentSnake.forEach(index => squares[index].classList.add('snake'))
 
 // Get the snake looking like its moving
 const move = () =>{
+    // check if a wall has been hit
+    if(
+        (currentSnake[0] + width >= 100 && direction === width) || //if snake has hit bottom
+        (currentSnake[0] % width === 9 && direction === 1) || // if snake has hit right wall
+        (currentSnake[0] % width === 0 && direction === -1) || //if snake has hit left wall
+        (currentSnake[0] - width < 0 && direction === -width) //if snake has hit top
+
+    )
+    
     // remove last element from snake array using pop() method and store it in a variable
     const tail = currentSnake.pop()
     // remove styling from last element
