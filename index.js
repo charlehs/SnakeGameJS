@@ -16,7 +16,7 @@ let currentSnake = [2, 1, 0]
 // Function to populate html with grid
 const createGrid = () =>{
 // create 100 of these elements with a for loop
-for (let i = 0; i < 100; i++){
+for (let i = 0; i < width*width; i++){
 // create element
 const square = document.createElement('div')
 // add styling
@@ -38,13 +38,16 @@ currentSnake.forEach(index => squares[index].classList.add('snake'))
 const move = () =>{
     // check if a wall has been hit
     if(
-        (currentSnake[0] + width >= 100 && direction === width) || //if snake has hit bottom
-        (currentSnake[0] % width === 9 && direction === 1) || // if snake has hit right wall
+        (currentSnake[0] + width >= width*width && direction === width) || //if snake has hit bottom
+        (currentSnake[0] % width === width-1 && direction === 1) || // if snake has hit right wall
         (currentSnake[0] % width === 0 && direction === -1) || //if snake has hit left wall
-        (currentSnake[0] - width < 0 && direction === -width) //if snake has hit top
-
+        (currentSnake[0] - width < 0 && direction === -width) || //if snake has hit top
+        squares[currentSnake[0] + direction].classList.contains('snake') //if we've hit the snake body
     )
-    
+    return clearInterval(timerId)
+
+
+
     // remove last element from snake array using pop() method and store it in a variable
     const tail = currentSnake.pop()
     // remove styling from last element
@@ -59,6 +62,15 @@ move()
 
 // Using setInterval to loop a function on specified time
 const timerId = setInterval(move, 1000)
+
+
+// generate apples
+const generateApples = () => {
+    do{
+        Math.floor(Math.random() * width*width) - 1
+    }while (squares[appleIndex].classList.contains('snake'))
+    squares[appleIndex.classList.add('apple')]
+}
 
 
 // keycodes need to refactor to e.key
