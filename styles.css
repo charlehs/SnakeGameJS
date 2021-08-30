@@ -1,0 +1,23 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Grid styling */
+.grid{
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    height: 200px;
+    border: solid 1px black;
+}
+/* styling the 100 divs */
+.square{
+    width: 20px;
+    height: 20px;
+    /* background-color: red; */
+    flex-direction: row;
+}
+
+.snake {
+    background-color: green;
+}
