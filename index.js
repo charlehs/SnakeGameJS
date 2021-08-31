@@ -1,7 +1,13 @@
 // Grab all elements on page
 const startBtn = document.getElementById('start')
-const score = document.getElementById('score')
+const scoreDisplay = document.getElementById('score')
 const grid = document.querySelector('.grid')
+let score = 0
+
+// snake speed
+let intervalTime = 1000
+let speed = 0.9
+let timerId = 0
 
 // apples
 let appleIndex = 0
@@ -37,6 +43,22 @@ createGrid()
 currentSnake.forEach(index => squares[index].classList.add('snake'))
 
 
+// Start game button
+const startGame = () =>{
+    currentSnake.forEach(index => squares[index].classList.remove('snake')) //remove snake class from grid
+    squares[appleIndex].classList.remove('apple') // remove apple class from grid
+    clearInterval(timerId) //clear timer
+    currentSnake = [2, 1, 0] //reset snake
+    score = 0 //reset score
+    scoreDisplay.textContent = score //display reset score on html
+    direction = 1 //direction back to moving right
+    intervalTime = 1000 //speed reset
+    currentSnake.forEach(index => squares[index].classList.add('snake')) //add our new snake to the grid
+    generateApples() //create new apple
+    timerId = setInterval(move, intervalTime) //speed implemented
+}
+
+
 // Get the snake looking like its moving
 const move = () =>{
     // check if a wall has been hit
@@ -57,6 +79,28 @@ const move = () =>{
     squares[tail].classList.remove('snake')
     // add square in direction we're heading using unshift() method
     currentSnake.unshift(currentSnake[0] + direction)
+
+        // deal with snake head getting the apple
+        if (squares[currentSnake[0]].classList.contains('apple')) {
+            // remove the class of apple
+            squares[currentSnake[0]].classList.remove('apple')
+            // grow our snake by adding class of snake
+            squares[tail].classList.add('snake')
+            // grow our snake array
+            currentSnake.push(tail)
+            // generate new apple
+            generateApples()
+            // add one to score
+            score++
+            // display score
+            scoreDisplay.textContent = score
+            //  speed up snake
+            clearInterval(timerId) // clear current speed
+            intervalTime = intervalTime * speed // set new faster speed
+            timerId = setInterval(move, intervalTime) //replace timerId with new speed
+        }
+
+
     // add styling so we can see it
     squares[currentSnake[0]].classList.add('snake')
 }
@@ -64,15 +108,16 @@ const move = () =>{
 move()
 
 // Using setInterval to loop a function on specified time
-const timerId = setInterval(move, 1000)
+timerId = setInterval(move, intervalTime)
 
 
 // generate apples
-function generateApples(){
-    do{
+function generateApples() {
+    do {
+        //generate a random number
         appleIndex = Math.floor(Math.random() * squares.length)
-    }while (squares[appleIndex].classList.contains('snake'))
-    squares[appleIndex.classList.add('apple')]
+    } while (squares[appleIndex].classList.contains('snake'))
+    squares[appleIndex].classList.add('apple')
 }
 generateApples()
 
@@ -95,4 +140,5 @@ function control(e) {
 // add functionality to key press
 document.addEventListener('keyup', control) 
 
- 
+ //hook up start button
+ document.addEventListener('click', startGame)
