@@ -3,6 +3,9 @@ const startBtn = document.getElementById('start')
 const score = document.getElementById('score')
 const grid = document.querySelector('.grid')
 
+// apples
+let appleIndex = 0
+
 // Determine snakes direction
 let direction = 1
 const width = 10
@@ -65,13 +68,13 @@ const timerId = setInterval(move, 1000)
 
 
 // generate apples
-const generateApples = () => {
+function generateApples(){
     do{
-        Math.floor(Math.random() * width*width) - 1
+        appleIndex = Math.floor(Math.random() * squares.length)
     }while (squares[appleIndex].classList.contains('snake'))
     squares[appleIndex.classList.add('apple')]
 }
-
+generateApples()
 
 // keycodes need to refactor to e.key
 function control(e) {
@@ -92,3 +95,4 @@ function control(e) {
 // add functionality to key press
 document.addEventListener('keyup', control) 
 
+ 
