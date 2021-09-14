@@ -1,7 +1,63 @@
-body{
-    font-family: Arial, Helvetica, sans-serif;
+/* Layout */
+html{
+
 }
 
+body{
+    font-family: 'Space Mono', monospace;
+    margin: 0 auto;
+}
+
+header{
+    width: 400px;
+    margin: 0 auto;
+    /* border: solid; */
+    text-align: center;
+}
+
+.game{
+    width: 400px;
+    margin: 0 auto;
+    /* border: solid; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+}
+
+.game-background{
+    /* border: 1px solid red; */
+    margin: 0 auto;
+    margin-bottom: 35px;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    border-radius: 25px;
+    /* background-color: #183693; */
+}
+
+.game-background h2{
+    padding: 0;
+    margin: 0;
+    margin-top: 18px;
+}
+
+#start{
+    padding: 0;
+    border: solid 1px;
+    border-radius: 25px;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+
+}
+
+#start:hover,
+#start::selection{
+    color:blue;
+}
+
+/* Snake Game */
 /* Grid styling */
 .grid{
     display: flex;
@@ -9,6 +65,7 @@ body{
     width: 200px;
     height: 200px;
     border: solid 1px black;
+    
 }
 /* styling the 100 divs */
 .square{
